@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Env
+venv/
+.env/
+
+# Logs
+logs/
+*.log
+
+# ML Models Cache
+.cache/
+huggingface/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# DevTunnel
+.devcontainer/
+
+# Database
+*.db
+*.sqlite3
+
+# Secrets
+.env
+.env.local
+
+# Ollama
+ollama.log
+
+# Large model files
+*.bin
+*.pt
+*.pth
+
+# Jupyter
+.ipynb_checkpoints/
+
+dataset/emails.csv
+
+*.pkl
+*.joblib
+__pycache__/
+.pytest_cache/

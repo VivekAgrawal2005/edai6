@@ -1,0 +1,85 @@
+{
+  "project": "email-intelligence",
+  "created_at": "2026-05-16T00:00:00Z",
+  "models": {
+    "spam": {
+      "model_path": "ml_models/spam/spam_model.pkl",
+      "vectorizer_path": "ml_models/spam/vectorizer.pkl",
+      "model_type": "xgboost",
+      "best_params": {
+        "learning_rate": 0.1,
+        "max_depth": 6
+      },
+      "feature_scaler": "ml_models/spam/feature_scaler.pkl",
+      "engineered_features": ["num_urls","num_currency","num_digits","exclamation_count","uppercase_ratio","has_promo_keyword"]
+    },
+    "reply_needed": {
+      "model_path": "ml_models/reply_needed/reply_model.pkl",
+      "vectorizer_path": "ml_models/reply_needed/vectorizer.pkl",
+      "model_type": "xgboost",
+      "best_params": {
+        "learning_rate": 0.1,
+        "max_depth": 4
+      }
+    },
+    "intent": {
+      "model_path": "ml_models/intent/intent_model.pkl",
+      "vectorizer_path": "ml_models/intent/vectorizer.pkl",
+      "model_type": "svm",
+      "best_params": {
+        "C": 2.0
+      }
+    }
+  },
+  "notes": "Paths are workspace-relative. Re-train if dataset or hyperparameters change."
+}
+{
+  "version": "1.0",
+  "generated_at": "2026-05-16T00:00:00Z",
+  "models": {
+    "spam": {
+      "model_path": "ml_models/spam/spam_model.pkl",
+      "vectorizer_path": "ml_models/spam/vectorizer.pkl",
+      "type": "xgboost",
+      "metrics": {
+        "accuracy": 0.995,
+        "precision": 0.9953571428571429,
+        "recall": 0.995,
+        "f1": 0.9950858901797238
+      },
+      "best_params": {
+        "learning_rate": 0.05,
+        "max_depth": 4
+      }
+    },
+    "reply_needed": {
+      "model_path": "ml_models/reply_needed/reply_model.pkl",
+      "vectorizer_path": "ml_models/reply_needed/vectorizer.pkl",
+      "type": "xgboost",
+      "metrics": {
+        "accuracy": 0.9875,
+        "precision": 0.9873127880184334,
+        "recall": 0.9875,
+        "f1": 0.9872075070335552
+      },
+      "best_params": {
+        "learning_rate": 0.1,
+        "max_depth": 4
+      }
+    },
+    "intent": {
+      "model_path": "ml_models/intent/intent_model.pkl",
+      "vectorizer_path": "ml_models/intent/vectorizer.pkl",
+      "type": "svm",
+      "metrics": {
+        "accuracy": 0.895,
+        "precision": 0.894386798523591,
+        "recall": 0.895,
+        "f1": 0.893563074158092
+      },
+      "best_params": {
+        "C": 2.0
+      }
+    }
+  }
+}

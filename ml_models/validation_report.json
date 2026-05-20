@@ -1,0 +1,27 @@
+{
+  "models": {
+    "spam": {
+      "available": true,
+      "inference_ms": {
+        "runs": 100,
+        "mean_ms": 7.590456999987509,
+        "min_ms": 6.394300000465591,
+        "max_ms": 9.514999999737483
+      },
+      "sample_result": {
+        "label": false,
+        "confidence": 5.925028381170705e-05
+      },
+      "scaler_path_exists": true
+    },
+    "reply_needed": {
+      "available": false
+    },
+    "intent": {
+      "available": false
+    }
+  },
+  "summary": {
+    "total_models_available": 1
+  }
+}
