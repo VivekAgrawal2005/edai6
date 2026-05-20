@@ -12,12 +12,17 @@ from typing import Dict, List, Optional
 
 from app.config import settings
 from app.services.heuristics import detect_time_context, extract_sender_name
+from app.services.ollama_service import OllamaClient
+from app.services.retriever import Retriever
 
 
 class ReplyGenerator:
     def __init__(self, templates_path: str | None = None) -> None:
         self.templates_path = Path(templates_path or settings.templates_path)
         self.templates = self._load_templates()
+        self._use_ollama = settings.use_ollama
+        self._ollama = OllamaClient() if self._use_ollama else None
+        self._retriever = Retriever()
 
     def _load_templates(self) -> Dict[str, List[str]]:
         if not self.templates_path.exists():
@@ -49,8 +54,23 @@ class ReplyGenerator:
         body: str | None = None,
         email_id: str | None = None,
     ) -> Optional[str]:
+        # blocked intents handled by rule engine earlier; keep conservative checks
         if not intent or intent in {"newsletter", "spam"}:
             return None
+
+        # If Ollama enabled, prefer LLM-generated reply using RAG examples
+        if self._use_ollama and self._ollama is not None:
+            try:
+                examples = self._retriever.retrieve(subject, body)
+                # use sync call to avoid event-loop issues in route handlers
+                reply = self._ollama.generate_reply_sync(subject, body, intent, examples=examples)
+                if reply:
+                    return reply
+            except Exception:
+                # fall back to template approach on any LLM failure
+                pass
+
+        # deterministic template fallback
         options = self.templates.get(intent) or self.templates.get("fallback", [])
         if not options:
             return None

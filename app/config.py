@@ -52,6 +52,14 @@ class AppSettings:
     use_hf_spam_classifier: bool = _get_bool("USE_HF_SPAM_CLASSIFIER", True)
     hf_spam_model_id: str = os.getenv("HF_SPAM_MODEL_ID", "mrm8488/bert-tiny-finetuned-sms-spam-detection")
     hf_spam_device: int = int(os.getenv("HF_SPAM_DEVICE", "-1"))
+    # Ollama (local LLM) settings
+    use_ollama: bool = _get_bool("USE_OLLAMA", False)
+    ollama_url: str = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
+    ollama_model: str = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+    ollama_timeout_sec: int = int(os.getenv("OLLAMA_TIMEOUT_SEC", "15"))
+    ollama_retries: int = int(os.getenv("OLLAMA_RETRIES", "2"))
+    # Retrieval augmentation
+    rag_top_k: int = int(os.getenv("RAG_TOP_K", "3"))
 
     @property
     def database_path(self) -> str:
